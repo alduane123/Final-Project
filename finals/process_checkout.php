@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['checkout'])) {
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            $stmt = $conn->prepare("INSERT INTO orders (user_id, item_id, total_amount, name, order_date, address, payment_method, shipping_method, status) VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, 'Pending')");
+            $stmt = $conn->prepare("INSERT INTO orders (user_id, item_id, total_amount, name, order_date, address, payment_method, shipping_method, status) VALUES (?, ?, ?, ?, NOW(), ?, ?, ?, 'Order Placed')");
 
             $stmt->bind_param("iidssss", $user_id, $item_id, $totalAmount, $name, $address, $paymentMethod, $shippingMethod);
 

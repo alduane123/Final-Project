@@ -26,6 +26,10 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
             $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
             $sql = "SELECT * FROM items";
+            if ($category != 'all') {
+                $sql .= " WHERE category = '" . $conn->real_escape_string($category) . "'";
+            }
+
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
