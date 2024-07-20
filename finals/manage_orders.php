@@ -5,7 +5,7 @@ require "db.php";
 
 ?>
 
-<link rel="stylesheet" href="style.css"> <!-- Link to your CSS file -->
+<link rel="stylesheet" href="style.css"> 
 <style>
     table {
         width: 100%;
@@ -25,7 +25,7 @@ require "db.php";
 
     .action-column {
         width: 10%;
-        /* Adjust the width as needed */
+        
         text-align: center;
     }
 
@@ -55,26 +55,18 @@ require "db.php";
         cursor: pointer;
     }
 
-    /* Modal styles */
+    
     .modal {
         display: none;
-        /* Hidden by default */
         position: fixed;
-        /* Stay in place */
         z-index: 1;
-        /* Sit on top */
         left: 0;
         top: 0;
         width: 100%;
-        /* Full width */
         height: 100%;
-        /* Full height */
         overflow: auto;
-        /* Enable scroll if needed */
         background-color: rgba(0, 0, 0, 0.4);
-        /* Black w/ opacity */
         padding-top: 100px;
-        /* Location of the box */
     }
 
     .modal-content {
@@ -201,40 +193,33 @@ require "db.php";
 
 <script>
     $(document).ready(function() {
-        // Open modal when update button is clicked
         $('.btn-update').click(function() {
             var orderId = $(this).data('order-id');
             $('#myModal').css('display', 'block');
-            // Here you could optionally fetch current status and pre-select the corresponding radio button
-            $('#updateStatusForm').data('order-id', orderId); // Store orderId in form data
+            $('#updateStatusForm').data('order-id', orderId); 
         });
 
-        // Close modal when close button or outside modal area is clicked
+
         $('.cancel, .close').click(function() {
             $('#myModal').css('display', 'none');
         });
 
-        // Prevent modal from closing when clicking inside the modal content
         $('.modal-content').click(function(event) {
             event.stopPropagation();
         });
 
-        // Update status logic
         $('.updateStatus').click(function() {
             var newStatus = $('input[name="status"]:checked').val();
-            var orderId = $('#updateStatusForm').data('order-id'); // Retrieve orderId from form data
+            var orderId = $('#updateStatusForm').data('order-id');
 
-            if (newStatus && orderId) { // Ensure orderId is valid
-                // Perform AJAX request to update status in database
+            if (newStatus && orderId) { 
+               
                 $.post('update_status.php', {
                     order_id: orderId,
                     status: newStatus
                 }, function(data) {
-                    // Handle success or error response from server
                     console.log('Status updated successfully');
-                    // Update the status displayed in the table without refreshing the page
                     $('tr[data-order-id="' + orderId + '"] .order-status').text(newStatus);
-                    // Close modal after successful update
                     $('#myModal').css('display', 'none');
                 }).fail(function() {
                     alert('Error updating status');
